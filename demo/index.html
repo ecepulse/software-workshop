@@ -31,6 +31,7 @@
 			    overflow-x: scroll;
 			    background-image: linear-gradient(135deg,#0054B7 0,#62CCDD 100%);
 			    background-image: linear-gradient(135deg,#FFC837 0,#FF8008 100%);
+			    overflow-y: hidden;
 			}
 
 			.chart-container {
@@ -67,11 +68,13 @@
 			  stroke: rgba(255, 255, 255, 0.4);
 			}
 
-			.add-data {
+			.prime {
 			  display: block;
 			  position: absolute;
-			  bottom: -30px;
+			  bottom: -100px;
+			  color: black;
 			}
+
 		</style>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/chartist/0.9.5/chartist.min.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
@@ -83,47 +86,12 @@
 		        <div class="ct-chart"></div>
 		    </div>
 		  </div>
-		  <button class="add-data">Add</button>
+		  <span class="prime"><h1 id="prime"></h1></span>
 		</div>
 	</body>
 
-
+	<!-- <script src="index.js"></script> -->
+	<script src="performance-demo.js"></script>
 	<script>
-		var data = {
-		  // A labels array that can contain any sort of values
-		  labels: [' ', ' ', ' ', ' ', ' '],
-		  // Our series array that contains series objects or in this case series data arrays of heartbeat values
-		  series: [
-		    [72, 70, 68, 72, 88]
-		  ]
-		};
-
-		// Create a new line chart object where as first parameter we pass in a selector
-		// that is resolving to our chart container element. The Second parameter
-		// is the actual data object.
-		var myChart = new Chartist.Line('.ct-chart', data);
-
-		$(document).ready(function(){
-			//function to increase the width of the chart as more data is added to it
-			$(".add-data").on('click', function(){
-		  	var currWidth	=	$(".chart-container").width();
-		    var newWidth	=	currWidth + 40;
-		  	$(".chart-container").width(newWidth);
-		    
-		    // this is where the webworker will push data into the chart
-		    
-		    //for now it just pushes a random number between 96 and 64
-		    //
-		    var randomNumber = Math.floor(Math.random() * (97 - 64) + 64);
-		    data.series[0].push(randomNumber);
-		    data.labels.push(' ');
-
-		    myChart.update(data);
-
-		    var rightMost = $('.chart-container').width();
-			$('.screen').scrollLeft(rightMost);
-
-		  });
-		});
 	</script>
 </html>
