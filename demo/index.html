@@ -74,7 +74,6 @@
 			  bottom: -100px;
 			  color: black;
 			}
-
 		</style>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/chartist/0.9.5/chartist.min.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
@@ -86,12 +85,30 @@
 		        <div class="ct-chart"></div>
 		    </div>
 		  </div>
-		  <span class="prime"><h1 id="prime"></h1></span>
+		  <span class="prime"><h1 id="prime">ADD</h1></span>
 		</div>
 	</body>
 
-	<!-- <script src="index.js"></script> -->
-	<script src="performance-demo.js"></script>
+	<script src="index.js"></script>
+
+	<!-- Prime number generation -->
 	<script>
+		function isPrime(num) {
+			for ( var i = 2; i < num; i++ ) {
+			    if ( num % i === 0 ) {
+			        return false;
+			    }
+			}
+			return true;
+		}
+
+		$(document).ready(function() {
+			var num = 3;
+			setInterval(function(){
+				num += 2;
+				if (isPrime(num))
+					document.getElementById('prime').innerHTML = num;
+			}, 250);
+		});
 	</script>
 </html>

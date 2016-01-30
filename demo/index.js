@@ -13,8 +13,6 @@ var data = {
 var myChart = new Chartist.Line('.ct-chart', data);
 
 function update() {
-	// update the chart width, and scroll the pane to the right as we add more data to it
-	
 	var currWidth	=	$(".chart-container").width();
     var newWidth	=	currWidth + 40;
   	$(".chart-container").width(newWidth);
@@ -22,22 +20,16 @@ function update() {
 	$('.screen').scrollLeft(rightMost);
 }
 
-function generateData() {
-
-	// Generate random number between 64 and 96
-	var randomNumber = Math.floor(Math.random() * (97 - 64) + 64);
-	
-	// Push the random number to the data object we initialized
-	data.series[0].push(randomNumber);
-	
-	// Push a blank label on the x-axis for the data point we just added 
-	data.labels.push(' ');
-	
-	// Update the Chart with the new heartbeat data
-	myChart.update(data);
-}
-
 $(document).ready(function(){
-	// FILL IN YOUR CODE HERE
+	var worker = new Worker('worker.js');
 
+	// When a new number is received, add it to the graph
+	worker.addEventListener('message', function(e){
+		data.series[0].push(e.data);
+		data.labels.push(' ');
+		myChart.update(data);
+
+		update();
+
+	}, false);
 });
